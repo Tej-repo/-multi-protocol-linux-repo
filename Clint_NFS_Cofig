@@ -1,0 +1,10 @@
+mkdir /mnt/nfsrepo
+mount <server-ip>:/repo/base /mnt/nfsrepo
+
+vi /etc/yum.repos.d/nfs.repo
+
+[nfs-repo]
+name=NFS Repository
+baseurl=file:///mnt/nfsrepo
+enabled=1
+gpgcheck=0
