@@ -1,0 +1,48 @@
+**Create Base Repository**
+
+mkdir /mnt/iso
+mount /dev/cdrom /mnt/iso
+
+mkdir -p /repo/base
+cp -rv /mnt/iso/* /repo/base/
+
+createrepo /repo/base/
+
+**HTTP Repository Setup**
+
+yum install httpd -y
+
+ln -s /repo/base /var/www/html/repo
+
+systemctl enable --now httpd
+
+firewall-cmd --add-service=http --permanent
+firewall-cmd --reload
+Access URL:-  http://<server-ip>/repo
+
+**FTP Repository Setup**
+
+yum install vsftpd -y
+
+ln -s /repo/base /var/ftp/pub/repo
+
+systemctl enable --now vsftpd
+
+firewall-cmd --add-service=ftp --permanent
+firewall-cmd --reload
+Access URL:- ftp://<server-ip>/pub/repo
+
+**NFS Repository Setup**
+
+yum install nfs-utils -y
+
+echo "/repo/base *(rw,sync,no_root_squash)" >> /etc/exports
+
+systemctl enable --now nfs-server
+
+exportfs -rav
+
+firewall-cmd --add-service=nfs --permanent
+firewall-cmd --reload
+
+
