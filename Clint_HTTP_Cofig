@@ -1,0 +1,7 @@
+vi /etc/yum.repos.d/http.repo
+
+[http-repo]
+name=HTTP Repository
+baseurl=http://<server-ip>/repo
+enabled=1
+gpgcheck=0
