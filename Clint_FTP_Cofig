@@ -1,0 +1,7 @@
+vi /etc/yum.repos.d/ftp.repo
+
+[ftp-repo]
+name=FTP Repository
+baseurl=ftp://<server-ip>/pub/repo
+enabled=1
+gpgcheck=0
